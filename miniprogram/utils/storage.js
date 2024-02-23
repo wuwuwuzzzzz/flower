@@ -17,7 +17,7 @@ export const setStorage = (key, data) => {
  */
 export const getStorage = (key) => {
   try {
-    wx.getStorageSync('key')
+    return wx.getStorageSync('key')
   } catch (error) {
     console.log(`读取指定 ${ key } 数据发生了异常`, error);
   }
@@ -69,7 +69,7 @@ export const asyncSetStorage = (key, data) => {
  */
 export const asyncGetStorage = (key) => {
   return new Promise((resolve) => {
-    wx.getStorage({
+    return wx.getStorage({
       key,
       complete(res) {
         resolve(res)

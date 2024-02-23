@@ -12,6 +12,12 @@ class WxRequest {
     timeout: 60000
   }
 
+  // 拦截器
+  interceptor = {
+    request: (config) => config,
+    response: (response) => response
+  }
+
   constructor(params = {}) {
     this.defaults = Object.assign({}, this.defaults, params)
   }
@@ -20,15 +26,18 @@ class WxRequest {
 
     options.url = this.defaults.baseURL = options.url
     options = { ...this.defaults, ...options }
+    options = this.interceptor.request(options)
 
     return new Promise((resolve, reject) => {
       wx.request({
         ...options,
         success: (res) => {
-          resolve(res)
+          const mergeRes = Object.assign({}, res, { config: options, isSuccess: true })
+          resolve(this.interceptor.response(mergeRes))
         },
         fail: (res) => {
-          reject(res)
+          const mergeErr = Object.assign({}, res, { config: options, isSuccess: false })
+          reject(this.interceptor.response(mergeErr))
         }
       })
     })
@@ -55,9 +64,4 @@ class WxRequest {
   }
 }
 
-const instance = new WxRequest({
-  baseURL: 'https://gmall-prod.atguigu.cn/mall-api',
-  timeout: 15000
-})
-
-export default instance
+export default WxRequest
