@@ -1,4 +1,7 @@
-// 消息提示
+/**
+ * @description      消息提示框
+ * @param { Object } options 参数和 wx.showToast 参数保持一致
+ */
 const toast = ({ title = '数据加载中...', icon = 'none', duration = 2000, mask = true } = {}) => {
   wx.showToast({
     title,
@@ -8,7 +11,10 @@ const toast = ({ title = '数据加载中...', icon = 'none', duration = 2000, m
   })
 }
 
-// 模态框
+/**
+ * @description      模态对话框
+ * @param { Object } options 参数和 wx.showModal 参数保持一致
+ */
 const modal = (options = {}) => {
   return new Promise((resolve) => {
     // 默认的参数
