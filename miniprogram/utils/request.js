@@ -7,7 +7,7 @@ class WxRequest {
     data: null,
     method: 'GET',
     header: {
-      "Content-type": 'application/json'
+      'Content-type': 'application/json'
     },
     timeout: 60000
   }
@@ -32,6 +32,26 @@ class WxRequest {
         }
       })
     })
+  }
+
+  // 封装 GET 实例方法
+  get(url, data = {}, config = {}) {
+    return this.request(Object.assign({ url, data, method: 'GET' }, config))
+  }
+
+  // 封装 DELETE 实例方法
+  delete(url, data = {}, config = {}) {
+    return this.request(Object.assign({ url, data, method: 'DELETE' }, config))
+  }
+
+  // 封装 POST 实例方法
+  post(url, data = {}, config = {}) {
+    return this.request(Object.assign({ url, data, method: 'POST' }, config))
+  }
+
+  // 封装 PUT 实例方法
+  put(url, data = {}, config = {}) {
+    return this.request(Object.assign({ url, data, method: 'PUT' }, config))
   }
 }
 
