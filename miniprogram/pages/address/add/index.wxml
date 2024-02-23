@@ -52,6 +52,6 @@
     </view>
 
     <!-- 提交按钮 -->
-    <button class="button" bindtap="saveAddrssForm">保存</button>
+    <button class="button" bindtap="saveAddressForm">保存</button>
   </form>
 </view>
