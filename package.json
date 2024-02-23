@@ -1,0 +1,22 @@
+{
+  "name": "flower",
+  "version": "1.0.0",
+  "description": "flower",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuwuwuzzzzz/flower.git"
+  },
+  "author": "wxz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wuwuwuzzzzz/flower/issues"
+  },
+  "homepage": "https://github.com/wuwuwuzzzzz/flower#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.11.4"
+  }
+}
