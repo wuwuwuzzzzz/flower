@@ -3,7 +3,7 @@
     <text>头像</text>
 
     <view class="avatar">
-      <button hover-class="none">
+      <button hover-class="none" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
         <image src="{{ userInfo.headimgurl || '/assets/images/avatar.png' }}" />
       </button>
     </view>

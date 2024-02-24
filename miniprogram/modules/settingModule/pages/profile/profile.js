@@ -4,6 +4,7 @@ import { userBehavior } from './behavior';
 
 Page({
 
+  // 注册 behavior
   behaviors: [userBehavior],
 
   // 页面的初始数据
@@ -23,5 +24,16 @@ Page({
     this.setData({
       isShowPopup: false
     })
+  },
+
+  // 更新用户头像
+  chooseAvatar(event) {
+
+    const { avatarUrl } = event.detail
+
+    this.setData({
+      'userInfo.headimgurl': avatarUrl
+    })
   }
+
 })

@@ -1,5 +1,3 @@
 import './utils/extendApi'
 
-App({
-
-})
+App({})
