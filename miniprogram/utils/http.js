@@ -26,7 +26,7 @@ instance.interceptor.response = async (response) => {
 
   if (!isSuccess) {
     wx.showToast({
-      title: '网络一场请重试',
+      title: '网络异常请重试',
       icon: 'error'
     })
 
