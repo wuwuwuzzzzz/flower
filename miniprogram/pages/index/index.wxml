@@ -1,4 +1,7 @@
-<view class="index-container">
+<import src="./skeleton/index.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{ loading }}" />
+
+<view class="index-container" wx:else>
   <!--首页背景图-->
   <view class="window-bgc"></view>
 

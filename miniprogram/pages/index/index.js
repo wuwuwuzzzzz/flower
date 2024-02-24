@@ -12,7 +12,8 @@ Page({
     // 人气推荐
     hotList: [],
     // 猜你喜欢
-    guessList: []
+    guessList: [],
+    loading: true
   },
 
   // 获取首页数据
@@ -26,6 +27,7 @@ Page({
       activeList: res[2].data,
       hotList: res[3].data,
       guessList: res[4].data,
+      loading: false
     })
   },
 
