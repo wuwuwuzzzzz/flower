@@ -18,7 +18,8 @@ Page({
   // 显示修改昵称弹框
   onUpdateNickName() {
     this.setData({
-      isShowPopup: true
+      isShowPopup: true,
+      'userInfo.nickname': this.data.userInfo.nickname
     })
   },
 
@@ -48,6 +49,17 @@ Page({
       this.setUserInfo(this.data.userInfo)
       toast({ title: '用户信息更新成功' })
     }
+  },
+
+  // 获取用户昵称
+  getNickName(event) {
+
+    const { nickname } = event.detail.value
+
+    this.setData({
+      'userInfo.nickname': nickname,
+      isShowPopup: false
+    })
   }
 
 })

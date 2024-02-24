@@ -27,11 +27,11 @@
     showCancelButton="{{ false }}"
     transition="fade"
   >
-    <form>
-      <input class="input-name" value="{{ userInfo.nickname }}" />
+    <form bindsubmit="getNickName">
+      <input name="nickname" class="input-name" value="{{ userInfo.nickname }}" />
       <view class="dialog-content">
-        <button class="cancel" bindtap="cancelForm">取消</button>
-        <button class="confirm" type="primary">确定</button>
+        <button class="cancel" bindtap="cancelForm" form-type="reset">取消</button>
+        <button class="confirm" type="primary" form-type="submit">确定</button>
       </view>
     </form>
   </van-dialog>
