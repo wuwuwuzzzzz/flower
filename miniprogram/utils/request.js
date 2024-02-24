@@ -100,8 +100,8 @@ class WxRequest {
   }
 
   // 处理并发请求
-  all(...promise) {
-    return Promise.all(promise)
+  all(promise) {
+    return Promise.all([...promise])
   }
 
   // 上传文件
