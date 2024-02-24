@@ -67,3 +67,5 @@ instance.interceptor.response = async (response) => {
       return Promise.reject(response)
   }
 }
+
+export default instance
