@@ -29,7 +29,7 @@ class WxRequest {
   request(options) {
 
     this.timerId && clearTimeout(this.timerId)
-    options.url = this.defaults.baseURL = options.url
+    options.url = this.defaults.baseURL + options.url
     options = { ...this.defaults, ...options }
     if (options.isLoading && options.method !== 'UPLOAD') {
       this.queue.length === 0 && wx.showLoading({ title: '加载中' })
