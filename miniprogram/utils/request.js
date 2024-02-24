@@ -31,36 +31,51 @@ class WxRequest {
     this.timerId && clearTimeout(this.timerId)
     options.url = this.defaults.baseURL = options.url
     options = { ...this.defaults, ...options }
-    if (options.isLoading) {
-      this.queue.length === 0 && wx.showLoading()
+    if (options.isLoading && options.method !== 'UPLOAD') {
+      this.queue.length === 0 && wx.showLoading({ title: '加载中' })
       this.queue.push('request')
     }
     options = this.interceptor.request(options)
 
     return new Promise((resolve, reject) => {
-      wx.request({
-        ...options,
-        success: (res) => {
-          const mergeRes = Object.assign({}, res, { config: options, isSuccess: true })
-          resolve(this.interceptor.response(mergeRes))
-        },
-        fail: (res) => {
-          const mergeErr = Object.assign({}, res, { config: options, isSuccess: false })
-          reject(this.interceptor.response(mergeErr))
-        },
-        complete: (res) => {
-          if (options.isLoading) {
-            this.queue.pop()
-            this.queue.length === 0 && this.queue.push('request')
-
-            this.timerId = setTimeout(() => {
-              this.queue.pop()
-              this.queue.length === 0 && wx.hideLoading()
-              clearTimeout(this.timerId)
-            }, 1)
+      if (options.method === 'UPLOAD') {
+        wx.uploadFile({
+          ...options,
+          success: (res) => {
+            res.data = JSON.parse(res.data)
+            const mergeRes = Object.assign({}, res, { config: options, isSuccess: true })
+            resolve(this.interceptor.response(mergeRes))
+          },
+          fail: (err) => {
+            const mergeErr = Object.assign({}, err, { config: options, isSuccess: false })
+            reject(this.interceptor.response(mergeErr))
           }
-        }
-      })
+        })
+      } else {
+        wx.request({
+          ...options,
+          success: (res) => {
+            const mergeRes = Object.assign({}, res, { config: options, isSuccess: true })
+            resolve(this.interceptor.response(mergeRes))
+          },
+          fail: (res) => {
+            const mergeErr = Object.assign({}, res, { config: options, isSuccess: false })
+            reject(this.interceptor.response(mergeErr))
+          },
+          complete: (res) => {
+            if (options.isLoading) {
+              this.queue.pop()
+              this.queue.length === 0 && this.queue.push('request')
+
+              this.timerId = setTimeout(() => {
+                this.queue.pop()
+                this.queue.length === 0 && wx.hideLoading()
+                clearTimeout(this.timerId)
+              }, 1)
+            }
+          }
+        })
+      }
     })
   }
 
@@ -87,6 +102,11 @@ class WxRequest {
   // 处理并发请求
   all(...promise) {
     return Promise.all(promise)
+  }
+
+  // 上传文件
+  upload(url, filePath, name = 'file', config = {}) {
+    return this.request(Object.assign({ url, filePath, name, method: 'UPLOAD' }, config))
   }
 }
 
