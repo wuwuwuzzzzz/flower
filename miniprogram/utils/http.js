@@ -1,10 +1,11 @@
 import WxRequest from './request';
 import { clearStorage, getStorage } from './storage';
 import { modal, toast } from './extendApi';
+import { env } from './env';
 
 // 对 WxRequest 进行实例化
 const instance = new WxRequest({
-  baseURL: 'https://gmall-prod.atguigu.cn/mall-api',
+  baseURL: env.baseURL,
   timeout: 15000
 })
 
