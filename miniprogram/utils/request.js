@@ -9,7 +9,8 @@ class WxRequest {
     header: {
       'Content-type': 'application/json'
     },
-    timeout: 60000
+    timeout: 60000,
+    isLoading: true
   }
 
   // 拦截器
@@ -18,14 +19,22 @@ class WxRequest {
     response: (response) => response
   }
 
+  // 数组队列
+  queue = []
+
   constructor(params = {}) {
     this.defaults = Object.assign({}, this.defaults, params)
   }
 
   request(options) {
 
+    this.timerId && clearTimeout(this.timerId)
     options.url = this.defaults.baseURL = options.url
     options = { ...this.defaults, ...options }
+    if (options.isLoading) {
+      this.queue.length === 0 && wx.showLoading()
+      this.queue.push('request')
+    }
     options = this.interceptor.request(options)
 
     return new Promise((resolve, reject) => {
@@ -38,6 +47,18 @@ class WxRequest {
         fail: (res) => {
           const mergeErr = Object.assign({}, res, { config: options, isSuccess: false })
           reject(this.interceptor.response(mergeErr))
+        },
+        complete: (res) => {
+          if (options.isLoading) {
+            this.queue.pop()
+            this.queue.length === 0 && this.queue.push('request')
+
+            this.timerId = setTimeout(() => {
+              this.queue.pop()
+              this.queue.length === 0 && wx.hideLoading()
+              clearTimeout(this.timerId)
+            }, 1)
+          }
         }
       })
     })
