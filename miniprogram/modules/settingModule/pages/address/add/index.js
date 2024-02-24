@@ -27,9 +27,23 @@ Page({
   },
 
   // 保存收货地址
-  saveAddressForm(event) {},
+  saveAddressForm(event) {
+  },
 
   // 省市区选择
-  onAddressChange(event) {}
+  onAddressChange(event) {
+
+    const [provinceName, cityName, districtName] = event.detail.value
+    const [provinceCode, cityCode, districtCode] = event.detail.code
+
+    this.setData({
+      provinceName,
+      cityName,
+      districtName,
+      provinceCode,
+      cityCode,
+      districtCode
+    })
+  }
 
 })

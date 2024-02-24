@@ -24,8 +24,9 @@
       <view class="row">
         <text class="title">所在地区</text>
 
-        <picker mode="region">
-          <view class="placeholder"> 请选择收货人所在地区</view>
+        <picker mode="region" bindchange="onAddressChange">
+          <view class="region" wx:if="{{ provinceName }}">{{ provinceName + ' ' + cityName + ' ' + districtName }}</view>
+          <view class="placeholder" wx:else> 请选择收货人所在地区</view>
         </picker>
 
         <view class="location">
