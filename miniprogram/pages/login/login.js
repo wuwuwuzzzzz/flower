@@ -22,9 +22,9 @@ ComponentWithStore({
           if (code) {
             const { data } = await reqLogin()
             setStorage('token', data.token)
-            console.log(data)
             this.setToken(data.token)
             this.getuserInfo()
+            wx.navigateBack()
           } else {
             toast({ title: '授权失败，请重新授权' })
           }
