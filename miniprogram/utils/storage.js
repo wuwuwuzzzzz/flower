@@ -5,7 +5,7 @@
  */
 export const setStorage = (key, data) => {
   try {
-    wx.setStorageSync('key', data)
+    wx.setStorageSync(key, data)
   } catch (error) {
     console.log(`存储指定 ${ key } 数据发生了异常`, error);
   }
@@ -17,7 +17,7 @@ export const setStorage = (key, data) => {
  */
 export const getStorage = (key) => {
   try {
-    return wx.getStorageSync('key')
+    return wx.getStorageSync(key)
   } catch (error) {
     console.log(`读取指定 ${ key } 数据发生了异常`, error);
   }
@@ -29,7 +29,7 @@ export const getStorage = (key) => {
  */
 export const removeStorage = (key) => {
   try  {
-    wx.removeStorageSync('key')
+    wx.removeStorageSync(key)
   } catch (error) {
     console.log(`移除指定 ${ key } 数据发生了异常`, error);
   }
