@@ -1,10 +1,16 @@
 Page({
+
   data: {
-    buyName: '', // 订购人姓名
-    buyPhone: '', // 订购人手机号
-    deliveryDate: '选择送达日期', // 期望送达日期
-    blessing: '', // 祝福语
-    show: false, // 期望送达日期弹框
+    // 订购人姓名
+    buyName: '',
+    // 订购人手机号
+    buyPhone: '',
+    // 期望送达日期
+    deliveryDate: '选择送达日期',
+    // 祝福语
+    blessing: '',
+    // 期望送达日期弹框
+    show: false,
     minDate: new Date().getTime(),
     currentDate: new Date().getTime()
   },
@@ -38,4 +44,5 @@ Page({
       url: '/modules/settingModule/pages/address/list/index'
     })
   }
+
 })

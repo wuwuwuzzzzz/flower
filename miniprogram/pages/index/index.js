@@ -1,6 +1,7 @@
 import { reqIndexData } from '../../api/index';
 
 Page({
+
   // 初始化数据
   data: {
     // 轮播图数据
@@ -35,4 +36,5 @@ Page({
   onLoad() {
     this.getIndexData()
   }
+  
 })

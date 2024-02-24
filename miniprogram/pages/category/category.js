@@ -1,6 +1,7 @@
 import { reqCategoryData } from '../../api/category';
 
 Page({
+
   // 初始化数据
   data: {
     // 商品分类列表数据
@@ -33,4 +34,5 @@ Page({
   onLoad() {
     this.getCategoryData()
   }
+
 })

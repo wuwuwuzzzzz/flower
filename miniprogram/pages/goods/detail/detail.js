@@ -1,5 +1,6 @@
 // pages/goods/detail/index.js
 Page({
+
   // 页面的初始数据
   data: {
 	goodsInfo: {}, // 商品详情
@@ -31,4 +32,5 @@ Page({
   onChangeGoodsCount(event) {
     console.log(event.detail)
   }
+
 })
