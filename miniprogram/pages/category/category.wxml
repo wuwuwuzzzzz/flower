@@ -3,10 +3,8 @@
     <!-- 左侧的滚动视图区域 -->
     <scroll-view class="category-left-view" scroll-y>
       <!-- 一级分类 -->
-      <view class="left-view-item active"> 爱礼精选 </view>
-      <view class="left-view-item"> 鲜花玫瑰 </view>
-      <view class="left-view-item"> 永生玫瑰 </view>
-      <view class="left-view-item"> 玫瑰珠宝 </view>
+      <view class="left-view-item {{ activeIndex === index ? 'active' : '' }}"
+            wx:for="{{ categoryList }}" wx:key="id" bindtap="updateActive" data-index="{{ index }}"> {{ item.name }} </view>
     </scroll-view>
 
     <!-- 右侧的滚动视图区域 -->
