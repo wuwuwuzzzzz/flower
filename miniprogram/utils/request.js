@@ -62,6 +62,11 @@ class WxRequest {
   put(url, data = {}, config = {}) {
     return this.request(Object.assign({ url, data, method: 'PUT' }, config))
   }
+
+  // 处理并发请求
+  all(...promise) {
+    return Promise.all(promise)
+  }
 }
 
 export default WxRequest
