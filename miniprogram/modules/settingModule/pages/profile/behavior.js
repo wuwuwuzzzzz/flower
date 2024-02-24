@@ -5,6 +5,7 @@ export const userBehavior = BehaviorWithStore({
 
   storeBindings: {
     store: userStore,
-    fields: ['userInfo']
+    fields: ['userInfo'],
+    actions: ['setUserInfo']
   }
 })

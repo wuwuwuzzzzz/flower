@@ -15,7 +15,7 @@
   </view>
 
   <view class="footer">
-    <view class="btn">保存</view>
+    <view class="btn" bindtap="updateUserInfo">保存</view>
   </view>
 
   <van-dialog

@@ -1,6 +1,9 @@
 // pages/profile/profile.js
 
 import { userBehavior } from './behavior';
+import { reqUpdateUserInfo, reqUploadFile } from '../../../../api/use';
+import { setStorage } from '../../../../utils/storage';
+import { toast } from '../../../../utils/extendApi';
 
 Page({
 
@@ -27,13 +30,24 @@ Page({
   },
 
   // 更新用户头像
-  chooseAvatar(event) {
+  async chooseAvatar(event) {
 
     const { avatarUrl } = event.detail
+    const res = await reqUploadFile(avatarUrl, 'file')
 
     this.setData({
-      'userInfo.headimgurl': avatarUrl
+      'userInfo.headimgurl': res.data
     })
+  },
+
+  // 更新用户信息
+  async updateUserInfo() {
+    const res = await reqUpdateUserInfo(this.data.userInfo)
+    if (res.code === 200) {
+      setStorage('userInfo', this.data.userInfo)
+      this.setUserInfo(this.data.userInfo)
+      toast({ title: '用户信息更新成功' })
+    }
   }
 
 })
