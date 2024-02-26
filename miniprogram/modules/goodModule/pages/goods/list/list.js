@@ -25,9 +25,23 @@ Page({
   async getGoodsList() {
     const { data } = await reqGoodsList(this.data.requestData)
     this.setData({
-      goodsList: data.records,
+      goodsList: [...this.data.goodsList, ...data.records],
       total: data.total
     })
+  },
+
+  // 监听页面上拉
+  onReachBottom() {
+    const { goodsList, total, requestData } = this.data
+    const { page } = requestData
+    if (goodsList.length === total) {
+      this.setData({ isFinish: true })
+      return
+    }
+    this.setData({
+      requestData: { ...this.data.requestData, page: page + 1 }
+    })
+    this.getGoodsList()
   },
 
   onLoad(options) {
