@@ -18,7 +18,7 @@
               </view>
             </view>
 
-            <view class="editBtn" bindtap="toEdit">
+            <view class="editBtn" bindtap="toEdit" data-id="{{ item.id }}">
               <van-icon name="edit" size="22px" color="#999" />
             </view>
           </view>

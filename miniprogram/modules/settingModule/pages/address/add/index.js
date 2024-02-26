@@ -1,6 +1,6 @@
 import QQMapWX from '../../../../../libs/qqmap-wx-jssdk'
 import Schema from 'async-validator';
-import { reqAddAddress } from '../../../../../api/address';
+import { reqAddAddress, reqAddressInfo, reqUpdateAddress } from '../../../../../api/address';
 
 Page({
 
@@ -31,7 +31,7 @@ Page({
   },
 
   // 保存收货地址
-  async saveAddressForm(event) {
+  async saveAddressForm() {
 
     const { provinceName, cityName, districtName, address, isDefault } = this.data
 
@@ -45,11 +45,14 @@ Page({
 
     if (!valid) return
 
-    const res = await reqAddAddress(params)
+    const res = this.addressId ? await reqUpdateAddress(params) : await reqAddAddress(params)
 
     if (res.code === 200) {
-      wx.navigateBack()
-      wx.toast({ title: '新增收货地址成功！' })
+      wx.navigateBack({
+        success: () => {
+          wx.toast({ title: this.addressId ? '更新收货地址成功！' : '新增收货地址成功！' })
+        }
+      })
     }
   },
 
@@ -159,10 +162,25 @@ Page({
     }
   },
 
-  onLoad() {
+  //  用来处理更新相关的逻辑
+  async showAddressInfo(id) {
+
+    if (!id) return
+    this.addressId = id
+
+    wx.setNavigationBarTitle({
+      title: '更新收货地址'
+    })
+    const { data } = await reqAddressInfo(id)
+
+    this.setData(data)
+  },
+
+  onLoad(options) {
     this.qqmapwx = new QQMapWX({
       key: 'RGUBZ-SPECB-6ROU3-J4MJE-WYM53-Z7FF3'
     })
+    this.showAddressInfo(options.id)
   }
 
 })

@@ -9,9 +9,12 @@ Page({
   },
 
   // 去编辑页面
-  toEdit() {
+  toEdit(event) {
+
+    const { id } = event.currentTarget.dataset
+
     wx.navigateTo({
-      url: '/modules/settingModule/pages/address/add/index'
+      url: `/modules/settingModule/pages/address/add/index?id=${id}`
     })
   },
 
