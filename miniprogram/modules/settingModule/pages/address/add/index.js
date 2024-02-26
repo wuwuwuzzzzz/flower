@@ -1,4 +1,5 @@
 import QQMapWX from '../../../../../libs/qqmap-wx-jssdk'
+import Schema from 'async-validator';
 
 Page({
 
@@ -29,14 +30,50 @@ Page({
   },
 
   // 保存收货地址
-  saveAddressForm(event) {
+  async saveAddressForm(event) {
 
     const { provinceName, cityName, districtName, address, isDefault } = this.data
+
     const params = {
       ...this.data,
       fullAddress: provinceName + cityName + districtName + address,
       isDefault: isDefault ? 1 : 0
     }
+
+    const { valid } = await this.validatorAddress(params)
+
+    if (!valid) return
+    console.log(params)
+  },
+
+  validatorAddress(params) {
+
+    const nameRegExp = '^[\u4e00-\u9fa5a-zA-Z0-9]+$'
+    const phoneReg = '^(?:\\+?86)?1[3-9]\\d{9}$'
+
+    const rules = {
+      name: [
+        { required: true, message: '请输入收货人姓名' },
+        { pattern: nameRegExp, message: '收货人姓名不合法' }
+      ],
+      phone: [
+        { required: true, message: '请输入收货人手机号' },
+        { pattern: phoneReg, message: '收货人手机号不合法' }
+      ],
+      provinceName: { required: true, message: '请选择收货人所在地区' },
+      address: { required: true, message: '请输入详细地址' }
+    }
+
+    const validator = new Schema(rules);
+
+    return new Promise(resolve => validator.validate(params, (errors) => {
+      if (errors) {
+        wx.toast({ title: errors[0].message})
+        resolve({ valid: false })
+      } else {
+        resolve({ valid: true })
+      }
+    }))
   },
 
   // 省市区选择
@@ -64,7 +101,7 @@ Page({
         latitude
       },
       success: (res) => {
-        console.log(res)
+
         const { adcode, province, city, district } = res.result.ad_info
         const { street, street_number } = res.result.address_component
         const { standard_address } = res.result.formatted_address
