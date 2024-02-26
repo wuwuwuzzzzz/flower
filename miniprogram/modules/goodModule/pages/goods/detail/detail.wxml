@@ -1,7 +1,7 @@
 <view class="container goods-detail">
   <!-- 商品大图 -->
   <view class="banner-img">
-    <image class="img" src="/assets/images/floor-img.jpg" />
+    <image class="img" src="/miniprogram/assets/images/floor-img.jpg" />
   </view>
 
   <!-- 商品的基本信息 -->
@@ -16,9 +16,9 @@
 
   <!-- 商品的详细信息 -->
   <view class="detail">
-    <image class="img" mode="widthFix" src="/assets/images/floor-img.jpg" />
-    <image class="img" mode="widthFix" src="/assets/images/floor-img.jpg" />
-    <image class="img" mode="widthFix" src="/assets/images/floor-img.jpg" />
+    <image class="img" mode="widthFix" src="/miniprogram/assets/images/floor-img.jpg" />
+    <image class="img" mode="widthFix" src="/miniprogram/assets/images/floor-img.jpg" />
+    <image class="img" mode="widthFix" src="/miniprogram/assets/images/floor-img.jpg" />
   </view>
 
   <!-- 商品的底部商品导航 -->
@@ -47,7 +47,7 @@
       <view class="goods-item">
         <!-- 需要购买的商品图片 -->
         <view class="mid">
-          <image class="img" src="/assets/images/floor-img.jpg" />
+          <image class="img" src="/miniprogram/assets/images/floor-img.jpg" />
         </view>
 
         <!-- 商品基本信息 -->
