@@ -101,5 +101,8 @@
     "scope.userLocation": {
       "desc": "获取用户位置信心用于填写收货地址"
     }
+  },
+  "resolveAlias": {
+    "@/*": "/*"
   }
 }

@@ -1,5 +1,5 @@
 // pages/goods/detail/index.js
-import { reqGoodsInfo } from '../../../../../api/goods';
+import { reqGoodsInfo } from '@/api/goods';
 
 Page({
 

@@ -1,9 +1,9 @@
 // pages/profile/profile.js
 
 import { userBehavior } from './behavior';
-import { reqUpdateUserInfo, reqUploadFile } from '../../../../api/use';
-import { setStorage } from '../../../../utils/storage';
-import { toast } from '../../../../utils/extendApi';
+import { reqUpdateUserInfo, reqUploadFile } from '@/api/use';
+import { setStorage } from '@/utils/storage';
+import { toast } from '@/utils/extendApi';
 
 Page({
 

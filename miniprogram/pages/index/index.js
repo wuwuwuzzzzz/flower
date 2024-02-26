@@ -1,4 +1,4 @@
-import { reqIndexData } from '../../api/index';
+import { reqIndexData } from '@/api/index';
 
 Page({
 

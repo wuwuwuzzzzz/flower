@@ -1,4 +1,4 @@
-import http from '../utils/http';
+import http from '@/utils/http';
 
 // 获取商品列表
 export const reqGoodsList = ({ page, limit, ...data }) => {

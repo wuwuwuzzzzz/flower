@@ -1,10 +1,10 @@
 // pages/login/login.js
 
-import { toast } from '../../utils/extendApi';
-import { reqLogin, reqUserInfo } from '../../api/use';
-import { setStorage } from '../../utils/storage';
+import { toast } from '@/utils/extendApi';
+import { reqLogin, reqUserInfo } from '@/api/use';
+import { setStorage } from '@/utils/storage';
 import { ComponentWithStore } from 'mobx-miniprogram-bindings';
-import { userStore } from '../../stores/userStore';
+import { userStore } from '@/stores/userStore';
 
 ComponentWithStore({
 

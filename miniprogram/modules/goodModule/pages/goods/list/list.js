@@ -1,6 +1,6 @@
 // pages/goods/list/index.js
 
-import { reqGoodsList } from '../../../../../api/goods';
+import { reqGoodsList } from '@/api/goods';
 
 Page({
 

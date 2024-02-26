@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx-miniprogram';
-import { getStorage } from '../utils/storage';
+import { getStorage } from '@/utils/storage';
 
 export const userStore = observable({
 
