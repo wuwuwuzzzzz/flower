@@ -1,6 +1,6 @@
 import { ComponentWithStore } from 'mobx-miniprogram-bindings';
 import { userStore } from '@/stores/userStore';
-import { reqCartList } from '../../api/cart';
+import { reqCartList, reqUpdateChecked } from '../../api/cart';
 
 ComponentWithStore({
 
@@ -18,6 +18,22 @@ ComponentWithStore({
 
   // 组件的方法列表
   methods: {
+    // 更新商品购买状态
+    async updateChecked(event) {
+
+      const { detail } = event
+      const { id, index } = event.target.dataset
+      const isChecked = detail ? 1 : 0
+
+      const res = await reqUpdateChecked(id, isChecked)
+
+      console.log(res)
+
+      if (res.code === 200) {
+        await this.showTipGetList()
+      }
+    },
+
     // 展示文案信息
     async showTipGetList() {
       const { token } = this.data
@@ -28,7 +44,6 @@ ComponentWithStore({
         })
       } else {
         const { code, data: cartList } = await reqCartList()
-        console.log(cartList)
         if (code === 200) {
           this.setData({
             cartList,

@@ -10,7 +10,8 @@
         <van-cell-group border="{{ false }}">
           <view class="goods-info">
             <view class="left">
-              <van-checkbox checked-color="#FA4126" value="{{ item.checked }}"></van-checkbox>
+              <van-checkbox checked-color="#FA4126" value="{{ item.isChecked }}"
+                            bindchange="updateChecked" data-id="{{ item.goodsId }}" data-idnex="{{ index }}"></van-checkbox>
             </view>
             <view class="mid">
               <image class="img" src="{{ item.imageUrl }}" />
