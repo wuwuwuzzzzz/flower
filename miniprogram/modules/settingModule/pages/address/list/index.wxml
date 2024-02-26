@@ -24,7 +24,7 @@
           </view>
         </van-cell-group>
         <!-- <van-icon name="delete" size="22px" color="#999" /> -->
-        <view slot="right" class="van-swipe-cell__right">
+        <view slot="right" class="van-swipe-cell__right" bindtap="delAddress" data-id="{{ item.id }}">
           <text>删除</text>
         </view>
       </van-swipe-cell>
