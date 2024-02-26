@@ -56,7 +56,7 @@
           <view class="buy">
             <view class="price">
               <view class="symbol">¥</view>
-              <view class="num">100</view>
+              <view class="num">{{ goodsInfo.price }}</view>
             </view>
 
             <!-- 步进器组件控制购买数量 -->

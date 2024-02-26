@@ -1,7 +1,7 @@
 // pages/goods/detail/index.js
 import { reqGoodsInfo } from '@/api/goods';
 import { userBehavior } from '@/behaviors/userbehavior';
-import { reqAddCart } from '../../../../../api/cart';
+import { reqAddCart, reqCartList } from '../../../../../api/cart';
 
 Page({
 
@@ -18,7 +18,9 @@ Page({
     // 祝福语
     blessing: '',
     // 0 加入购物车 1 立即购买
-    buyNow: 0
+    buyNow: 0,
+    // 商品购买数量
+    allCount: 0
   },
 
   // 全屏预览图片
@@ -58,6 +60,7 @@ Page({
 
   // 确定按钮回调
   async handleSubmit() {
+
     const { token, count, blessing, buyNow } = this.data
     const goodsId = this.goodsId
 
@@ -72,6 +75,7 @@ Page({
       const res = await reqAddCart({ goodsId, count, blessing })
       if (res.code === 200) {
         wx.toast({ title: '加入购物车成功' })
+        await this.getCartCount()
         this.setData({ show: false })
       }
     } else {
@@ -89,9 +93,21 @@ Page({
     })
   },
 
+  // 获取购物车商品数量
+  async getCartCount() {
+    if (!this.data.token) return
+    const res = await reqCartList()
+    if (res.data.length !== 0) {
+      let allCount = 0
+      res.data.forEach(item => allCount+=item.count)
+      this.setData({ allCount: (allCount > 99 ? '99+' : allCount) })
+    }
+  },
+
   onLoad(options) {
     this.goodsId = options.goodsId
     this.getGoodsInfo()
+    this.getCartCount()
   }
 
 })
