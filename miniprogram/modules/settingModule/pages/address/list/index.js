@@ -1,8 +1,11 @@
 // pages/address/list/index.js
+import { reqAddressList } from '../../../../../api/address';
+
 Page({
+
   // 页面的初始数据
   data: {
-    addressList: [1, 2, 3]
+    addressList: []
   },
 
   // 去编辑页面
@@ -10,5 +13,15 @@ Page({
     wx.navigateTo({
       url: '/modules/settingModule/pages/address/add/index'
     })
+  },
+
+  // 获取收货地址列表数据
+  async getAddressList() {
+    const { data: addressList } = await reqAddressList()
+    this.setData({ addressList })
+  },
+
+  onShow() {
+    this.getAddressList()
   }
 })
