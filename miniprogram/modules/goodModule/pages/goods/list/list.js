@@ -49,6 +49,18 @@ Page({
     this.getGoodsList()
   },
 
+  // 监听页面下拉舒心
+  onPullDownRefresh() {
+    this.setData({
+      goodList: [],
+      total: 0,
+      isFinish: false,
+      requestData: { ...this.data.requestData, page: 1 }
+    })
+    this.getGoodsList()
+    wx.stopPullDownRefresh()
+  },
+
   onLoad(options) {
     Object.assign(this.data.requestData, options)
     this.getGoodsList()
