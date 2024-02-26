@@ -1,3 +1,5 @@
+import QQMapWX from '../../../../../libs/qqmap-wx-jssdk'
+
 Page({
 
   // 页面的初始数据
@@ -55,8 +57,30 @@ Page({
 
   // 获取用户地理位置信息
   async onLocation() {
-    const res = await wx.getLocation()
-    console.log(res)
+    const { latitude, longitude, name } = await wx.chooseLocation()
+    this.qqmapwx.reverseGeocoder({
+      location: {
+        longitude,
+        latitude
+      },
+      success: (res) => {
+        console.log(res)
+        const { adcode, province, city, district } = res.result.ad_info
+        const { street, street_number } = res.result.address_component
+        const { standard_address } = res.result.formatted_address
+
+        this.setData({
+          provinceName: province,
+          provinceCode: adcode.replace(adcode.substring(2, 6), '0000'),
+          cityName: city,
+          cityCode: adcode.replace(adcode.substring(4, 6), '00'),
+          districtName: district,
+          districtCode: district && adcode,
+          address: street + street_number + name,
+          fullAddress: standard_address + name
+        })
+      }
+    })
   },
 
   // wx.getLocation 获取用户地理位置
@@ -89,6 +113,12 @@ Page({
         wx.toast({ title: '您拒绝授权获取位置信息' })
       }
     }
+  },
+
+  onLoad() {
+    this.qqmapwx = new QQMapWX({
+      key: 'RGUBZ-SPECB-6ROU3-J4MJE-WYM53-Z7FF3'
+    })
   }
 
 })
