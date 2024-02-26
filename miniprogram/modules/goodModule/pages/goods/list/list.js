@@ -12,6 +12,8 @@ Page({
     total: 0,
     // 判断数据是否加载完毕
     isFinish: false,
+    // 判断数据是否加载完成
+    isLoading: false,
     // 商品列表请求参数
     requestData: {
       page: 1,
@@ -23,7 +25,9 @@ Page({
 
   // 获取商品列表数据
   async getGoodsList() {
+    this.data.isLoading = true
     const { data } = await reqGoodsList(this.data.requestData)
+    this.data.isLoading = false
     this.setData({
       goodsList: [...this.data.goodsList, ...data.records],
       total: data.total
@@ -32,8 +36,9 @@ Page({
 
   // 监听页面上拉
   onReachBottom() {
-    const { goodsList, total, requestData } = this.data
+    const { goodsList, total, requestData, isLoading} = this.data
     const { page } = requestData
+    if (isLoading) return;
     if (goodsList.length === total) {
       this.setData({ isFinish: true })
       return
