@@ -1,5 +1,6 @@
 import QQMapWX from '../../../../../libs/qqmap-wx-jssdk'
 import Schema from 'async-validator';
+import { reqAddAddress } from '../../../../../api/address';
 
 Page({
 
@@ -43,7 +44,13 @@ Page({
     const { valid } = await this.validatorAddress(params)
 
     if (!valid) return
-    console.log(params)
+
+    const res = await reqAddAddress(params)
+
+    if (res.code === 200) {
+      wx.navigateBack()
+      wx.toast({ title: '新增收货地址成功！' })
+    }
   },
 
   validatorAddress(params) {
