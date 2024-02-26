@@ -1,13 +1,17 @@
 // pages/address/list/index.js
 import { reqAddressList, reqDelAddress } from '../../../../../api/address';
+import { swiperCellBehavior } from '../../../../../behaviors/swiperCell';
 
 Page({
 
+  behaviors: [swiperCellBehavior],
+
   // 页面的初始数据
   data: {
-    addressList: []
+    addressList: [],
   },
 
+  // 删除收货地址
   async delAddress(event) {
 
     const { id } = event.currentTarget.dataset
