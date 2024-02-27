@@ -3,7 +3,8 @@
 <view class="container address-list" bindtap="onSwiperCellPage">
   <view class="list-warpper" wx:if="{{ addressList.length }}">
     <view wx:for="{{ addressList }}" wx:key="id" class="list-item">
-      <van-swipe-cell id="swiper-cell-{{ item.id }}" bind:open="swiperCellOpen" bind:click="onSwiperCellClick" right-width="{{ 65 }}">
+      <van-swipe-cell id="swiper-cell-{{ item.id }}" bind:open="swiperCellOpen"
+                      bind:click="onSwiperCellClick" right-width="{{ 65 }}">
         <van-cell-group border="{{ false }}">
           <view class="list-item-box">
             <view class="info">

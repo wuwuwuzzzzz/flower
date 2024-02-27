@@ -2,13 +2,15 @@ import { ComponentWithStore } from 'mobx-miniprogram-bindings';
 import { userStore } from '@/stores/userStore';
 import { reqCartList, reqCheckAllStatus, reqUpdateChecked, reqAddCart } from '@/api/cart';
 import { debounce } from 'miniprogram-licia'
+import { swiperCellBehavior } from '@/behaviors/swiperCell';
+import { reqDelCartGoods } from '../../api/cart';
 
 const computedBehavior = require('miniprogram-computed').behavior
 
 ComponentWithStore({
 
   // 注册 behavior
-  behaviors: [computedBehavior],
+  behaviors: [swiperCellBehavior, computedBehavior],
 
   // 组件的属性列表
   storeBindings: {
@@ -115,8 +117,27 @@ ComponentWithStore({
       }
     },
 
+    // 删除购物车中的商品
+    async delCartGoods(event) {
+
+      const { id } = event.currentTarget.dataset
+
+      const modalRes = await wx.modal({
+        content: '您确认删除该商品吗？'
+      })
+
+      if (modalRes) {
+        await reqDelCartGoods(id)
+        await this.showTipGetList()
+      }
+    },
+
     onShow() {
       this.showTipGetList()
+    },
+
+    onHide() {
+      this.onSwiperCellCommonClick()
     }
   }
 

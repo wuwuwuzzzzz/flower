@@ -1,4 +1,4 @@
-<view>
+<view bindtap="onSwiperCellPage">
   <!-- 购物车列表结构 -->
   <view
     wx:if="{{ token && cartList.length }}"
@@ -6,7 +6,8 @@
     bindtap="onSwipeCellPageTap"
   >
     <view class="goods-item" wx:for="{{ cartList }}" wx:key="goodsId">
-      <van-swipe-cell class="goods-swipe" right-width="{{ 65 }}">
+      <van-swipe-cell class="goods-swipe" right-width="{{ 65 }}" id="swiper-cell-{{ item.goodsId }}"
+                      bind:open="swiperCellOpen" bind:click="onSwiperCellClick">
         <van-cell-group border="{{ false }}">
           <view class="goods-info">
             <view class="left">
@@ -33,7 +34,7 @@
             </view>
           </view>
         </van-cell-group>
-        <view slot="right" class="van-swipe-cell__right">删除</view>
+        <view slot="right" class="van-swipe-cell__right" bindtap="delCartGoods" data-id="{{ item.goodsId }}">删除</view>
       </van-swipe-cell>
     </view>
   </view>
