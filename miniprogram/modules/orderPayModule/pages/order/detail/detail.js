@@ -2,6 +2,7 @@ import { reqOrderAddress } from '@/api/orderpay';
 import { reqBuyNowGood, reqOrderInfo, reqOrderSubmit, reqPayStatus, reqPrePayInfo } from '../../../../../api/orderpay';
 import { formatTime } from '@/utils/formatTime';
 import Schema from 'async-validator';
+import { debounce } from 'miniprogram-licia';
 
 // 获取应用实例
 const app = getApp()
@@ -28,8 +29,7 @@ Page({
   },
 
   // 提交订单
-  async submitOrder() {
-
+  submitOrder: debounce(async function () {
     const {
       buyName,
       buyPhone,
@@ -58,7 +58,7 @@ Page({
       this.orderNo = res.data
       await this.advancePay()
     }
-  },
+  }, 500),
 
   // 获取预付单信息
   async advancePay() {

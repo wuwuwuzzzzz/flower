@@ -5,6 +5,7 @@ import { reqLogin, reqUserInfo } from '@/api/use';
 import { setStorage } from '@/utils/storage';
 import { ComponentWithStore } from 'mobx-miniprogram-bindings';
 import { userStore } from '@/stores/userStore';
+import { debounce } from 'miniprogram-licia'
 
 ComponentWithStore({
 
@@ -16,7 +17,7 @@ ComponentWithStore({
 
   methods: {
     // 授权登录
-    login() {
+    login: debounce(function () {
       wx.login({
         success: async ({ code }) => {
           if (code) {
@@ -30,7 +31,8 @@ ComponentWithStore({
           }
         }
       })
-    },
+    }, 500),
+
     // 获取用户信息
     async getuserInfo() {
       const { data } = await reqUserInfo()
