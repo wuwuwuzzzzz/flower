@@ -1,4 +1,4 @@
-import { reqOrderList } from '@/api/orderpay';
+import { reqOrderList } from '../../../api/orderpay';
 
 Page({
 

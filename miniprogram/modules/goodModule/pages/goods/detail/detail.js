@@ -1,7 +1,7 @@
 // pages/goods/detail/index.js
-import { reqGoodsInfo } from '@/api/goods';
-import { userBehavior } from '@/behaviors/userbehavior';
-import { reqAddCart, reqCartList } from '../../../../../api/cart';
+import { reqGoodsInfo } from '../../../api/goods';
+import { userBehavior } from '../../../behaviors/userbehavior';
+import { reqAddCart, reqCartList } from '@/api/cart';
 
 Page({
 

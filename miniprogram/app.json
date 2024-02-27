@@ -118,5 +118,6 @@
   },
   "resolveAlias": {
     "@/*": "/*"
-  }
+  },
+  "lazyCodeLoading": "requiredComponents"
 }

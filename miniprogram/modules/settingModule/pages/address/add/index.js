@@ -1,6 +1,6 @@
-import QQMapWX from '@/libs/qqmap-wx-jssdk'
+import QQMapWX from '../../../libs/qqmap-wx-jssdk.min'
 import Schema from 'async-validator';
-import { reqAddAddress, reqAddressInfo, reqUpdateAddress } from '@/api/address';
+import { reqAddAddress, reqAddressInfo, reqUpdateAddress } from '../../../api/address';
 
 Page({
 
