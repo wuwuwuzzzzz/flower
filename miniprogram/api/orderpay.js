@@ -29,3 +29,8 @@ export const reqPrePayInfo = (orderNo) => {
 export const reqPayStatus = (orderNo) => {
   return http.get(`/wechat/queryPayStatus/{orderNo}`)
 }
+
+// 获取订单列表
+export const reqOrderList = (page, limit) => {
+  return http.get(`/order/order/${page}/${limit}`)
+}
