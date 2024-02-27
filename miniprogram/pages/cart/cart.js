@@ -18,8 +18,19 @@ ComponentWithStore({
 
   // 计算属性
   computed: {
+    // 全选
     selectAllStatus(data) {
       return data.cartList.length !== 0 && data.cartList.every(item => item.isChecked === 1)
+    },
+    // 订单总金额
+    totalPrice(data) {
+      let totalPrice = 0
+      data.cartList.forEach(item => {
+        if (item.isChecked === 1) {
+          totalPrice += item.price * item.count
+        }
+      })
+      return totalPrice
     }
   },
 
