@@ -44,6 +44,20 @@ ComponentWithStore({
 
   // 组件的方法列表
   methods: {
+    // 跳转到订单结算页面
+    toOrder() {
+      if (this.data.totalPrice === 0) {
+        wx.toast({
+          title: '请选择购买的商品'
+        })
+        return
+      }
+
+      wx.navigateTo({
+        url: '/modules/orderPayModule/pages/order/detail/detail'
+      })
+    },
+
     // 更新购买的数量
     changeBuyNum: debounce(async function(event) {
       const newBuyNum = event.detail > 200 ? 200 : event.detail
@@ -72,6 +86,7 @@ ComponentWithStore({
       }
 
     }, 500),
+
     // 全选和全不选
     async selectAllStatus(event) {
       const { detail } = event
@@ -84,6 +99,7 @@ ComponentWithStore({
         this.setData({ cartList: newCartList })
       }
     },
+
     // 更新商品购买状态
     async updateChecked(event) {
 

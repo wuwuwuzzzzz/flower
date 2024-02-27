@@ -8,7 +8,7 @@
       </view>
       <view class="goods-item list-flex">
         <view class="left">
-          <image src="/assets/images/floor-img.jpg" mode="widthFix" class="img" />
+          <image src="/miniprogram/assets/images/floor-img.jpg" mode="widthFix" class="img" />
         </view>
         <view class="mid">
           <view class="goods-name">不变的承诺</view>

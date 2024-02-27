@@ -79,7 +79,7 @@
     <view class="goods-list">
       <view class="goods-item detail-flex">
         <view class="img">
-          <image src="/assets/images/floor-img.jpg" />
+          <image src="/miniprogram/assets/images/floor-img.jpg" />
         </view>
         <view class="content">
           <view class="goods-title">[鲜花]韩式花篮/阳光使者</view>
@@ -92,7 +92,7 @@
 
       <view class="goods-item detail-flex">
         <view class="img">
-          <image src="/assets/images/floor-img.jpg" />
+          <image src="/miniprogram/assets/images/floor-img.jpg" />
         </view>
         <view class="content">
           <view class="goods-title">[鲜花]韩式花篮/阳光使者</view>
