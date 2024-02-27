@@ -16,8 +16,8 @@ export const reqBuyNowGood = ({ goodsId, ...data }) => {
 }
 
 // 提交订单
-export const reqOrderSubmit = () => {
-  return http.post('/order/submitOrder')
+export const reqOrderSubmit = (data) => {
+  return http.post('/order/submitOrder', data)
 }
 
 // 获取微信预支付信息

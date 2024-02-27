@@ -56,6 +56,7 @@ Page({
     }
   },
 
+  // 新增地址参数验证
   validatorAddress(params) {
 
     const nameRegExp = '^[\u4e00-\u9fa5a-zA-Z0-9]+$'

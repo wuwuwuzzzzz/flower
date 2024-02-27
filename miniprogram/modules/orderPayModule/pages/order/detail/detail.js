@@ -1,6 +1,7 @@
 import { reqOrderAddress } from '@/api/orderpay';
 import { reqBuyNowGood, reqOrderInfo } from '../../../../../api/orderpay';
 import { formatTime } from '@/utils/formatTime';
+import Schema from 'async-validator';
 
 // 获取应用实例
 const app = getApp()
@@ -13,7 +14,7 @@ Page({
     // 订购人手机号
     buyPhone: '',
     // 期望送达日期
-    deliveryDate: '选择送达日期',
+    deliveryDate: '',
     // 收货地址
     orderAddress: {},
     // 订单详情
@@ -24,6 +25,64 @@ Page({
     show: false,
     minDate: new Date().getTime(),
     currentDate: new Date().getTime()
+  },
+
+  // 提交订单
+  async submitOrder() {
+
+    const {
+      buyName,
+      buyPhone,
+      deliveryDate,
+      orderAddress,
+      blessing,
+      orderInfo
+    } = this.data
+
+    const params = {
+      buyName,
+      buyPhone,
+      cartList: orderInfo.cartVoList,
+      deliveryDate,
+      remarks: blessing,
+      userAddressId: orderAddress.id
+    }
+
+    const { valid } = await this.validatorAddress(params)
+
+  },
+
+  // 提交订单参数验证
+  validatorAddress(params) {
+
+    console.log(params)
+
+    const nameRegExp = '^[\u4e00-\u9fa5a-zA-Z0-9]+$'
+    const phoneReg = '^(?:\\+?86)?1[3-9]\\d{9}$'
+
+    const rules = {
+      userAddressId: { required: true, message: '请输入收货地址' },
+      buyName: [
+        { required: true, message: '请输入订购人姓名' },
+        { pattern: nameRegExp, message: '订购人姓名不合法' }
+      ],
+      buyPhone: [
+        { required: true, message: '请输入订购人手机号' },
+        { pattern: phoneReg, message: '订购人手机号不合法' }
+      ],
+      deliveryDate: { required: true, message: '请选择送达日期' },
+    }
+
+    const validator = new Schema(rules);
+
+    return new Promise(resolve => validator.validate(params, (errors) => {
+      if (errors) {
+        wx.toast({ title: errors[0].message})
+        resolve({ valid: false })
+      } else {
+        resolve({ valid: true })
+      }
+    }))
   },
 
   // 选择期望送达日期

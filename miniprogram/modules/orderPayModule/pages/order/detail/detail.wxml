@@ -58,7 +58,7 @@
         label-class="filed-label"
         title="期望送达日期："
         is-link
-        value="{{ deliveryDate }}"
+        value="{{ deliveryDate ? deliveryDate : '选择送达日期' }}"
         bind:click="onShowDateTimerPopUp"
       />
 
@@ -95,7 +95,7 @@
   <!-- 支付区域 -->
   <view class="footer detail-flex">
     <view class="left"> ¥{{ orderInfo.totalAmount }} </view>
-    <view class="right">提交订单</view>
+    <view class="right" bindtap="submitOrder">提交订单</view>
   </view>
 
   <van-popup
