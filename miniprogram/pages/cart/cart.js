@@ -1,13 +1,24 @@
 import { ComponentWithStore } from 'mobx-miniprogram-bindings';
 import { userStore } from '@/stores/userStore';
-import { reqCartList, reqUpdateChecked } from '../../api/cart';
+import { reqCartList, reqCheckAllStatus, reqUpdateChecked } from '../../api/cart';
+const computedBehavior = require('miniprogram-computed').behavior
 
 ComponentWithStore({
+
+  // 注册 behavior
+  behaviors: [computedBehavior],
 
   // 组件的属性列表
   storeBindings: {
     store: userStore,
     fields: ['token']
+  },
+
+  // 计算属性
+  computed: {
+    selectAllStatus(data) {
+      return data.cartList.length !== 0 && data.cartList.every(item => item.isChecked === 1)
+    }
   },
 
   // 组件的初始数据
@@ -18,6 +29,18 @@ ComponentWithStore({
 
   // 组件的方法列表
   methods: {
+    // 全选和全不选
+    async selectAllStatus(event) {
+      const { detail } = event
+      const isChecked = detail ? 1 : 0
+      const res = await reqCheckAllStatus(isChecked)
+
+      if (res.code === 200) {
+        const newCartList = JSON.parse(JSON.stringify(this.data.cartList))
+        newCartList.forEach(item => item.isChecked = isChecked)
+        this.setData({ cartList: newCartList })
+      }
+    },
     // 更新商品购买状态
     async updateChecked(event) {
 
@@ -26,8 +49,6 @@ ComponentWithStore({
       const isChecked = detail ? 1 : 0
 
       const res = await reqUpdateChecked(id, isChecked)
-
-      console.log(res)
 
       if (res.code === 200) {
         await this.showTipGetList()
