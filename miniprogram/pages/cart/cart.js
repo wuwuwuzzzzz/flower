@@ -1,6 +1,7 @@
 import { ComponentWithStore } from 'mobx-miniprogram-bindings';
 import { userStore } from '@/stores/userStore';
-import { reqCartList, reqCheckAllStatus, reqUpdateChecked } from '../../api/cart';
+import { reqCartList, reqCheckAllStatus, reqUpdateChecked } from '@/api/cart';
+import { reqAddCart } from '../../api/cart';
 const computedBehavior = require('miniprogram-computed').behavior
 
 ComponentWithStore({
@@ -29,6 +30,34 @@ ComponentWithStore({
 
   // 组件的方法列表
   methods: {
+    // 更新购买的数量
+    async changeBuyNum(event) {
+      const newBuyNum = event.detail > 200 ? 200 : event.detail
+      const { id, index, oldbuynum } = event.target.dataset
+      const reg = /^([1-9]|[1-9]\d|1\d{2}|200)$/
+      const regRes = reg.test(newBuyNum)
+
+      if (!regRes) {
+        this.setData({
+          [`cartList[${index}]`.count]: oldbuynum
+        })
+        return
+      }
+
+      const disCount = newBuyNum - oldbuynum
+
+      if (disCount === 0) return
+
+      const res = await reqAddCart({ goodsId: id, count: disCount })
+
+      if (res.code === 200) {
+        this.setData({
+          [`cartList[${index}]`.count]: newBuyNum,
+          [`cartList[${index}]`.isChecked]: 1
+        })
+      }
+
+    },
     // 全选和全不选
     async selectAllStatus(event) {
       const { detail } = event
