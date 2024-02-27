@@ -4,8 +4,7 @@
     "pages/category/category",
     "pages/cart/cart",
     "pages/my/my",
-    "pages/login/login",
-    "pages/settings/settings"
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -70,6 +69,7 @@
       "root": "modules/settingModule",
       "name": "settingModule",
       "pages": [
+        "pages/settings/settings",
         "pages/address/add/index",
         "pages/address/list/index",
         "pages/profile/profile"
@@ -93,7 +93,11 @@
     }
   ],
   "preloadRule": {
-    "pages/settings/settings": {
+    "pages/my/my": {
+      "network": "all",
+      "packages": ["settingModule"]
+    },
+    "modules/orderPayModule/pages/order/detail/detail": {
       "network": "all",
       "packages": ["settingModule"]
     },
