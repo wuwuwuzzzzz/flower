@@ -1,5 +1,6 @@
 import { reqOrderAddress } from '@/api/orderpay';
 import { reqBuyNowGood, reqOrderInfo } from '../../../../../api/orderpay';
+import { formatTime } from '@/utils/formatTime';
 
 // 获取应用实例
 const app = getApp()
@@ -35,7 +36,8 @@ Page({
   // 期望送达日期确定按钮
   onConfirmTimerPicker(event) {
     this.setData({
-      show: false
+      show: false,
+      deliveryDate: formatTime(new Date(event.detail))
     })
   },
 
