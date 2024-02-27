@@ -61,9 +61,16 @@ Page({
     wx.stopPullDownRefresh()
   },
 
+  // 监听页面加载
   onLoad(options) {
     Object.assign(this.data.requestData, options)
     this.getGoodsList()
-  }
+  },
+
+  // 转发功能
+  onShareAppMessage(options) {},
+
+  // 分享朋友圈
+  onShareTimeline() {}
 
 })

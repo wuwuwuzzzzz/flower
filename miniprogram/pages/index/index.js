@@ -35,6 +35,12 @@ Page({
   // 监听页面加载
   onLoad() {
     this.getIndexData()
-  }
-  
+  },
+
+  // 转发功能
+  onShareAppMessage(options) {},
+
+  // 分享朋友圈
+  onShareTimeline() {}
+
 })

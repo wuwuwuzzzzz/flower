@@ -104,10 +104,29 @@ Page({
     }
   },
 
+  // 监听页面加载
   onLoad(options) {
     this.goodsId = options.goodsId
     this.getGoodsInfo()
     this.getCartCount()
+  },
+
+  // 转发功能
+  onShareAppMessage(options) {
+    return {
+      title: '所有的怦然心动，都是你',
+      path: '/pages/index/index',
+      imageUrl: '../../../../../assets/images/love.jpg'
+    }
+  },
+
+  // 分享朋友圈
+  onShareTimeline() {
+    return {
+      title: '所有的怦然心动，都是你',
+      path: '/pages/index/index',
+      imageUrl: '../../../../../assets/images/love.jpg'
+    }
   }
 
 })

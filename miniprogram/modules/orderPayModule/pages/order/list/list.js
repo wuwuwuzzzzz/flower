@@ -47,7 +47,9 @@ Page({
     this.getOrderList()
   },
 
+  // 监听页面加载
   onLoad() {
     this.getOrderList()
   }
+
 })
