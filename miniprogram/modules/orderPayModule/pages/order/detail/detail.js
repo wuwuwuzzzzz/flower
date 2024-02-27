@@ -1,5 +1,5 @@
 import { reqOrderAddress } from '@/api/orderpay';
-import { reqBuyNowGood, reqOrderInfo } from '../../../../../api/orderpay';
+import { reqBuyNowGood, reqOrderInfo, reqOrderSubmit, reqPayStatus, reqPrePayInfo } from '../../../../../api/orderpay';
 import { formatTime } from '@/utils/formatTime';
 import Schema from 'async-validator';
 
@@ -50,12 +50,50 @@ Page({
 
     const { valid } = await this.validatorAddress(params)
 
+    if (!valid) return
+
+    const res = await reqOrderSubmit(params)
+
+    if (res.code === 200) {
+      this.orderNo = res.data
+      await this.advancePay()
+    }
+  },
+
+  // 获取预付单信息
+  async advancePay() {
+    try {
+      const payParams = await reqPrePayInfo(this.orderNo)
+
+      if (payParams.code === 200) {
+        const payInfo = await wx.requestPayment(payParams.data)
+
+        if (payInfo.errMag === 'requestPayment:ok') {
+          const payStatus = await reqPayStatus(this.orderNo)
+
+          if (payStatus.code === 200) {
+            wx.redirectTo({
+              url: '/modules/orderPayModule/pages/order/list/list',
+              success: () => {
+                wx.toast({
+                  title: '支付成功',
+                  icon: 'success'
+                })
+              }
+            })
+          }
+        }
+      }
+    } catch (error) {
+      wx.toast({
+        title: '支付失败，请联系客服',
+        icon: 'error'
+      })
+    }
   },
 
   // 提交订单参数验证
   validatorAddress(params) {
-
-    console.log(params)
 
     const nameRegExp = '^[\u4e00-\u9fa5a-zA-Z0-9]+$'
     const phoneReg = '^(?:\\+?86)?1[3-9]\\d{9}$'
