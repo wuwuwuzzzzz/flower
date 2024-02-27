@@ -1,3 +1,5 @@
+import { reqOrderAddress } from '@/api/orderpay';
+
 Page({
 
   data: {
@@ -7,6 +9,8 @@ Page({
     buyPhone: '',
     // 期望送达日期
     deliveryDate: '选择送达日期',
+    // 收货地址
+    orderAddress: {},
     // 祝福语
     blessing: '',
     // 期望送达日期弹框
@@ -43,6 +47,16 @@ Page({
     wx.navigateTo({
       url: '/modules/settingModule/pages/address/list/index'
     })
+  },
+
+  // 获取收货地址
+  async getAddress() {
+    const { data: orderAddress } = await reqOrderAddress()
+    this.setData({ orderAddress })
+  },
+
+  onShow() {
+    this.getAddress()
   }
 
 })
