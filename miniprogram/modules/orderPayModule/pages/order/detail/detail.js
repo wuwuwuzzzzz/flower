@@ -1,4 +1,8 @@
 import { reqOrderAddress } from '@/api/orderpay';
+import { reqOrderInfo } from '../../../../../api/orderpay';
+
+// 获取应用实例
+const app = getApp()
 
 Page({
 
@@ -11,6 +15,8 @@ Page({
     deliveryDate: '选择送达日期',
     // 收货地址
     orderAddress: {},
+    // 订单详情
+    orderInfo: {},
     // 祝福语
     blessing: '',
     // 期望送达日期弹框
@@ -51,12 +57,38 @@ Page({
 
   // 获取收货地址
   async getAddress() {
+
+    const addressId = app.globalData.address.id
+
+    if (addressId) {
+      this.setData({
+        orderAddress: app.globalData.address
+      })
+      return
+    }
+
     const { data: orderAddress } = await reqOrderAddress()
     this.setData({ orderAddress })
   },
 
+  // 获取订单详情
+  async getOrderInfo() {
+    const { data: orderInfo } = await reqOrderInfo()
+    const orderGoods = orderInfo.cartVoList.find(item => item.blessing !== '')
+
+    this.setData({
+      orderInfo,
+      blessing: orderGoods && orderGoods.blessing
+    })
+  },
+
   onShow() {
     this.getAddress()
+    this.getOrderInfo()
+  },
+
+  onUnload() {
+    app.globalData.address = {}
   }
 
 })

@@ -1,3 +1,9 @@
 import './utils/extendApi'
 
-App({})
+App({
+
+  // 全局共享数据
+  globalData: {
+    address: {}
+  }
+})

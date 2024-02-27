@@ -2,6 +2,9 @@
 import { reqAddressList, reqDelAddress } from '@/api/address';
 import { swiperCellBehavior } from '@/behaviors/swiperCell';
 
+// 获取应用实例
+const app = getApp()
+
 Page({
 
   behaviors: [swiperCellBehavior],
@@ -43,7 +46,23 @@ Page({
     this.setData({ addressList })
   },
 
+  // 更新收货地址
+  changeAddress(event) {
+    if (this.flag !== '1') return
+    const addressId = event.currentTarget.dataset.id
+    const selectAddress = this.data.addressList.find(item => item.id === addressId)
+
+    if (selectAddress) {
+      app.globalData.address = selectAddress
+      wx.navigateBack()
+    }
+  },
+
   onShow() {
     this.getAddressList()
+  },
+
+  onLoad(options) {
+    this.flag = options.flag
   }
 })
