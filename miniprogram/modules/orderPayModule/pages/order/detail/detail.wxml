@@ -65,7 +65,7 @@
       <van-cell title="订单备注：" border="{{ false }}" use-label-slot>
         <textarea
           slot="label"
-          model:value="{{ remarks }}"
+          model:value="{{ blessing }}"
           class="form-textarea"
           placeholder="写上您的祝福语，给心爱的他（她）送上你的祝福（请勿填写特殊符号或表情符号）"
           name="textarea"

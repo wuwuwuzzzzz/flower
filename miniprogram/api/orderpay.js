@@ -11,7 +11,7 @@ export const reqOrderAddress = () => {
 }
 
 // 获取立即购买商品的详细信息
-export const reqBuyNowGood = ({ goods, ...data }) => {
+export const reqBuyNowGood = ({ goodsId, ...data }) => {
   return http.get(`/order/buy/${goodsId}`, data)
 }
 

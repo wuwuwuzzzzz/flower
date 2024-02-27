@@ -1,5 +1,5 @@
 import { reqOrderAddress } from '@/api/orderpay';
-import { reqOrderInfo } from '../../../../../api/orderpay';
+import { reqBuyNowGood, reqOrderInfo } from '../../../../../api/orderpay';
 
 // 获取应用实例
 const app = getApp()
@@ -73,13 +73,19 @@ Page({
 
   // 获取订单详情
   async getOrderInfo() {
-    const { data: orderInfo } = await reqOrderInfo()
+
+    const { goodsId, blessing } = this.data
+    const { data: orderInfo } = goodsId ? await reqBuyNowGood({ goodsId, blessing }) : await reqOrderInfo()
     const orderGoods = orderInfo.cartVoList.find(item => item.blessing !== '')
 
     this.setData({
       orderInfo,
-      blessing: orderGoods && orderGoods.blessing
+      blessing: !orderGoods ? '' : orderGoods.blessing
     })
+  },
+
+  onLoad(options) {
+    this.setData({ ...options })
   },
 
   onShow() {
